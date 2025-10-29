@@ -12,6 +12,11 @@ if not cap.isOpened():
     print("Não foi possível abrir a câmera.")
     exit()
 
+# Definir coordenadas da área (vaga)
+# (x1, y1) canto superior esquerdo | (x2, y2) canto inferior direito
+vaga_x1, vaga_y1 = 200, 200
+vaga_x2, vaga_y2 = 400, 400
+
 try:
     while True:
         ret, frame = cap.read()
