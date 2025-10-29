@@ -52,9 +52,24 @@ try:
                     cv2.putText(frame, f"{nomeClasse} {confianca:.2f}", (int(x1), int(y1) - 10),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
-                # Verificar se tem carro
-                if nomeClasse == "car":
-                    print("############# Tem carro! #############")
+                    # 2. Manter a lógica de verificação da vaga
+                    inter_x1 = max(vaga_x1, x1)
+                    inter_y1 = max(vaga_y1, y1)
+                    inter_x2 = min(vaga_x2, x2)
+                    inter_y2 = min(vaga_y2, y2)
+
+                    if inter_x1 < inter_x2 and inter_y1 < inter_y2:
+                        vaga_ocupada = True
+
+                # --- FIM DA MUDANÇA ---
+                # As linhas de desenho que estavam aqui foram movidas para cima
+
+        # Desenhar a área da vaga (isso continua igual)
+        cor_vaga = (0, 0, 255) if vaga_ocupada else (0, 255, 0)
+        cv2.rectangle(frame, (vaga_x1, vaga_y1), (vaga_x2, vaga_y2), cor_vaga, 3)
+        texto = "OCUPADA" if vaga_ocupada else "LIVRE"
+        cv2.putText(frame, f"Vaga: {texto}", (vaga_x1, vaga_y1 - 10),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, cor_vaga, 2)
 
         # Mostrar o vídeo com detecções
         cv2.imshow("Detecção YOLOv8", frame)
