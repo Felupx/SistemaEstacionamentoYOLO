@@ -26,7 +26,8 @@ try:
         tempo1 = time.time()
         results = model(frame, verbose=False)  # passa o frame da câmera para o modelo
         tempo = time.time() - tempo1
-        # print("Tempo decorrido:", round(tempo, 3), "segundos")
+
+        vaga_ocupada = False
 
         # Pegar resultados
         for r in results:
