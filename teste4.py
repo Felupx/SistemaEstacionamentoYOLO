@@ -43,10 +43,14 @@ try:
                 classe_id = int(box.cls[0])
                 nomeClasse = model.names[classe_id]
 
-                # Desenhar retângulo e label na imagem
-                cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
-                cv2.putText(frame, f"{nomeClasse} {confianca:.2f}", (int(x1), int(y1) - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                # --- MUDANÇA PRINCIPAL AQUI ---
+                # Verificar se tem carro ANTES de desenhar
+                if nomeClasse == "car":
+
+                    # 1. Mover o desenho da caixa para DENTRO do if
+                    cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
+                    cv2.putText(frame, f"{nomeClasse} {confianca:.2f}", (int(x1), int(y1) - 10),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
                 # Verificar se tem carro
                 if nomeClasse == "car":
